@@ -26,10 +26,23 @@
             android:id="@+id/product_add_done_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:text="@string/btn_add_product_done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_speech_recognizer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/product_add_done_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/speech_recognize_btn"
+            android:clickable="true"
+            android:focusable="true" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
