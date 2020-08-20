@@ -20,7 +20,7 @@ open class DbHelper   //    SQLiteDatabase db;
         val result: MutableList<BasketProductModel> = ArrayList<BasketProductModel>()
         val db = writableDatabase
         val projection = arrayOf<String>(
-            ProductTableEntry.TABLE_NAME.toString() + "." + ProductTableEntry._ID + " as " + ProductTableEntry._ID,
+            BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry._ID + " as " + BasketTableEntry._ID,
             ProductTableEntry.TABLE_NAME.toString() + "." + ProductTableEntry.COLUMN_NAME + " as " + ProductTableEntry.COLUMN_NAME,
             ProductTableEntry.TABLE_NAME.toString() + "." + ProductTableEntry.COLUMN_GROUP_ID + " as " + ProductTableEntry.COLUMN_GROUP_ID,
             BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry.COLUMN_NOTE + " as " + BasketTableEntry.COLUMN_NOTE,
@@ -131,6 +131,9 @@ open class DbHelper   //    SQLiteDatabase db;
             val contentValues = ContentValues();
             contentValues.put(ProductTableEntry.COLUMN_NAME, name)
             result.id = db.insert(ProductTableEntry.TABLE_NAME, null, contentValues)
+        }else{
+            cursor.moveToFirst()
+            result.id = (cursor.getLong(cursor.getColumnIndex(ProductTableEntry._ID)))
         }
         return result
     }
@@ -139,7 +142,7 @@ open class DbHelper   //    SQLiteDatabase db;
     /**
      * Заносим элементы в список покупок по ИД
      */
-    fun addProductsToBusket(products: List<ProductModel>) {
+    fun addProductsToBasket(products: List<ProductModel>) {
         val db = writableDatabase
         products.forEach {
             val contentValues = ContentValues();

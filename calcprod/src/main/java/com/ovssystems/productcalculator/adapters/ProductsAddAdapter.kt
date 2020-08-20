@@ -46,7 +46,7 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
 
     override fun onBindViewHolder(holder: ProductsAddAdapter.AddItemHolder, position: Int) {
         holder.binding?.product = selectedProductList[position]
-        holder.binding?.editProductName?.doOnTextChanged { text, start, before, count ->
+       holder.binding?.editProductName?.doOnTextChanged { text, start, before, count ->
             onProductTextChanged(
                 holder.adapterPosition,
                 text.toString()
@@ -73,14 +73,14 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
         holder.binding?.editProductName?.threshold = 1
     }
 
-    private fun onProductSelected(position: Int, selectedItem: ProductModel) {
+   private fun onProductSelected(position: Int, selectedItem: ProductModel) {
         selectedProductList[position] = selectedItem
-        notifyItemChanged(position)
+/*        notifyItemChanged(position)
 
         if (selectedProductList.last().name.isNotEmpty()) {
             selectedProductList.add(ProductModel())
             notifyItemInserted(selectedProductList.lastIndex)
-        }
+        }*/
     }
 
     private fun onProductRemove(position: Int)

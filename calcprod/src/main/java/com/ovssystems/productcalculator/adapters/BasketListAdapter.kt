@@ -37,6 +37,7 @@ open class BasketListAdapter :
 
     override fun onBindViewHolder(holder: BasketItemHolder, position: Int) {
         holder.binding?.product = shoppedList[position]
+        holder.strikeText(shoppedList[holder.adapterPosition].checked)
     }
 
     override fun getItemCount(): Int {
@@ -49,14 +50,18 @@ open class BasketListAdapter :
 
         init {
             binding?.productItemChecker?.setOnClickListener {
-                val paintFlags = binding?.shoppedItemProductText?.paintFlags ?: 0;
-                val checked = (it as CheckBox).isChecked
-                binding?.shoppedItemProductText?.paintFlags = if (checked) {
-                    paintFlags or Paint.STRIKE_THRU_TEXT_FLAG;
-                } else {
-                    paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv();
-                }
+               val checked = (it as CheckBox).isChecked
+                strikeText(checked)
                 shoppedList[adapterPosition].checked = checked
+            }
+        }
+        internal fun strikeText(striked: Boolean =false)
+        {
+            val paintFlags = binding?.shoppedItemProductText?.paintFlags ?: 0;
+            binding?.shoppedItemProductText?.paintFlags = if (striked) {
+                paintFlags or Paint.STRIKE_THRU_TEXT_FLAG;
+            } else {
+                paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv();
             }
         }
     }

@@ -14,14 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
-
-        <CheckBox
-            android:id="@+id/product_item_checker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            android:checked="@={product.checked}" />
          <TextView
             android:id="@+id/shopped_item_product_text"
             android:layout_width="wrap_content"
@@ -29,10 +21,15 @@
             android:layout_gravity="center_vertical"
             android:text="@{product.name}"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toEndOf="@id/product_item_checker"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
-
+        <CheckBox
+            android:id="@+id/product_item_checker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            android:checked="@{product.checked}" />
         <ImageView
             android:id="@+id/shopped_item_product_info"
             android:layout_width="wrap_content"

@@ -2,4 +2,6 @@
     <string name="app_name">Product Calculator</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="done_shipping">Done shipping</string>
+    <string name="product_name_hint">Product Name</string>
+    <string name="btn_add_product_done">Done</string>
 </resources>

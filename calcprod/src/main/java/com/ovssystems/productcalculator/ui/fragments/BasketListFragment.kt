@@ -26,10 +26,10 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         basketListAdapter = BasketListAdapter()
         basketListView.adapter = basketListAdapter
         fab_add_shipping.setOnClickListener {  onAddItemsToBasketClick() }
-        busket_done_shipping.setOnClickListener { onBusketDoneShipping() }
+        busket_done_shipping.setOnClickListener { onBasketDoneShipping() }
     }
 
-    private fun onBusketDoneShipping() {
+    private fun onBasketDoneShipping() {
 
         basketListAdapter.shoppedList.forEach {
             if (it.checked) productDataGlobal.db.updatePurchased(it._id,it.date_purchased)
