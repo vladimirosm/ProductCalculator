@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Product Calculator</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="done_shipping">Done shipping</string>
+</resources>
