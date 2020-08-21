@@ -6,7 +6,6 @@ import com.ovssystems.productcalculator.APP_ACTIVITY
 import com.ovssystems.productcalculator.R
 import com.ovssystems.productcalculator.adapters.BasketListAdapter
 import com.ovssystems.productcalculator.productDataGlobal
-import com.ovssystems.productcalculator.ui.ProductsAddFragment
 import kotlinx.android.synthetic.main.fragment_basket_list.*
 
 class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
@@ -18,6 +17,7 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         initFunc()
         setHasOptionsMenu(true)
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        APP_ACTIVITY.hideKeyboard()
     }
 
     private fun initFunc() {
