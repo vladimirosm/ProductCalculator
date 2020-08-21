@@ -25,9 +25,9 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
         selectedProductList.add(ProductModel())
     }
 
-    private fun prepareAutocompleteAdapter(newItemString : String? =null) {
+    private fun prepareAutocompleteAdapter(newItemString: String? = null) {
         mProductAutoComplList.clear()
-        mProductAutoComplList.addAll( productDataGlobal.db.products )
+        mProductAutoComplList.addAll(productDataGlobal.db.products)
         if (!newItemString.isNullOrEmpty()) mProductAutoComplList.add(ProductModel(newItemString))
     }
 
@@ -46,7 +46,7 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
 
     override fun onBindViewHolder(holder: ProductsAddAdapter.AddItemHolder, position: Int) {
         holder.binding?.product = selectedProductList[position]
-       holder.binding?.editProductName?.doOnTextChanged { text, start, before, count ->
+        holder.binding?.editProductName?.doOnTextChanged { text, start, before, count ->
             onProductTextChanged(
                 holder.adapterPosition,
                 text.toString()
@@ -65,15 +65,14 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
 
         val allProductAdapter = ArrayAdapter<ProductModel>(
             APP_ACTIVITY,
-            android.R.layout.simple_dropdown_item_1line
-            ,productDataGlobal.db.products
+            android.R.layout.simple_dropdown_item_1line, productDataGlobal.db.products
         )
         holder.binding?.editProductName?.setAdapter(allProductAdapter)
         // Минимальное число символов для показа выпадающего списка
         holder.binding?.editProductName?.threshold = 1
     }
 
-   private fun onProductSelected(position: Int, selectedItem: ProductModel) {
+    private fun onProductSelected(position: Int, selectedItem: ProductModel) {
         selectedProductList[position] = selectedItem
 /*        notifyItemChanged(position)
 
@@ -83,17 +82,17 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
         }*/
     }
 
-    private fun onProductRemove(position: Int)
-    {
-        if (position >= selectedProductList.size ) return;
+    private fun onProductRemove(position: Int) {
+        if (position >= selectedProductList.size) return;
 
         selectedProductList.removeAt(position);
         notifyItemRemoved(position)
-        if (  selectedProductList.size <1 ) {
+        if (selectedProductList.size < 1) {
             selectedProductList.add(ProductModel())
-           notifyItemInserted(0)
+            notifyItemInserted(0)
         }
     }
+
     private fun onProductTextChanged(position: Int, text: String?) {
 
         if (selectedProductList.last().name.isNotEmpty()) {
@@ -102,9 +101,27 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
         }
     }
 
+    fun addText(data: ArrayList<String>) {
+        data.forEach {
+            addToEmptyItem(it)
+        }
+        notifyDataSetChanged()
+    }
+
+    private fun addToEmptyItem(text: String) {
+        selectedProductList.forEach {
+            if (it.name.isEmpty()) {
+                it.name = text;
+                return;
+            }
+        }
+        selectedProductList.add(ProductModel(text))
+    }
+
     inner class AddItemHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var binding: ProductItemEditBinding? = DataBindingUtil.bind(itemView)
+
         init {
             binding?.btnProductRemove?.setOnClickListener { onProductRemove(adapterPosition) }
 
