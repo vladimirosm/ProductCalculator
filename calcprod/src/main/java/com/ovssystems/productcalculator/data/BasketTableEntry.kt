@@ -9,4 +9,6 @@ object BasketTableEntry : BaseColumns {
     const val COLUMN_COUNT = "count"
     const val COLUMN_DATE_PURCHASED = "date_purchased"
     const val COLUMN_NOTE = "note"
+    const val COLUMN_ITEM_NAME = "item_name"
+    const val COLUMN_GROUP_ID = "group_id"
 }
