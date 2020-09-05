@@ -112,17 +112,13 @@ class ProductsAddFragment : Fragment(R.layout.basket_add_items) {
                 products.add(productDataGlobal.db.productByName(it.name))
         }
         productDataGlobal.db.addProductsToBasket(products)
-
         activity?.supportFragmentManager?.popBackStack()
     }
 
     override fun onStop() {
+ //       speechRecognizer.destroy();
+        APP_ACTIVITY.hideKeyboard()
         super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        speechRecognizer.destroy();
     }
 
     private fun checkPermission() {

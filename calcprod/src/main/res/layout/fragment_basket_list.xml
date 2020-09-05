@@ -13,10 +13,13 @@
         <com.omega_r.libs.omegarecyclerview.OmegaRecyclerView
             android:id="@+id/basket_item_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:divider="#888"
             android:dividerHeight="1dp"
+            android:nestedScrollingEnabled="true"
             app:itemSpace="4dp"
+            app:layout_constraintBottom_toTopOf="@id/busket_done_shipping"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/basket_product_item" />
 
@@ -27,19 +30,17 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/done_shipping"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/basket_item_view" />
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_shipping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:clickable="true"
+            android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_circle_24"
-            />
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

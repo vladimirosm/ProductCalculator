@@ -17,7 +17,7 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         initFunc()
         setHasOptionsMenu(true)
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        APP_ACTIVITY.hideKeyboard()
+
     }
 
     private fun initFunc() {
