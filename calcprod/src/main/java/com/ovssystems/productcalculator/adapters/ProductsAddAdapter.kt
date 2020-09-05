@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.omega_r.libs.omegarecyclerview.OmegaRecyclerView
 import com.ovssystems.productcalculator.APP_ACTIVITY
+import com.ovssystems.productcalculator.R
 import com.ovssystems.productcalculator.databinding.ProductItemEditBinding
 import com.ovssystems.productcalculator.model.ProductModel
 import com.ovssystems.productcalculator.productDataGlobal
@@ -36,8 +37,8 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
         viewType: Int
     ): ProductsAddAdapter.AddItemHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binder = ProductItemEditBinding.inflate(inflater, parent, false)
-        return AddItemHolder(binder.root)
+        val view = inflater.inflate(R.layout.product_item_edit, parent, false)
+        return AddItemHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -124,8 +125,6 @@ class ProductsAddAdapter : OmegaRecyclerView.Adapter<ProductsAddAdapter.AddItemH
 
         init {
             binding?.btnProductRemove?.setOnClickListener { onProductRemove(adapterPosition) }
-
-
         }
     }
 }

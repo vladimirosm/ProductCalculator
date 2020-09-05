@@ -21,8 +21,9 @@ open class DbHelper   //    SQLiteDatabase db;
         val db = writableDatabase
         val projection = arrayOf<String>(
             BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry._ID + " as " + BasketTableEntry._ID,
-            ProductTableEntry.TABLE_NAME.toString() + "." + ProductTableEntry.COLUMN_NAME + " as " + ProductTableEntry.COLUMN_NAME,
-            ProductTableEntry.TABLE_NAME.toString() + "." + ProductTableEntry.COLUMN_GROUP_ID + " as " + ProductTableEntry.COLUMN_GROUP_ID,
+//            ProductTableEntry.TABLE_NAME.toString() + "." + ProductTableEntry.COLUMN_NAME + " as " + ProductTableEntry.COLUMN_NAME,
+            BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry.COLUMN_ITEM_NAME + " as " + BasketTableEntry.COLUMN_ITEM_NAME,
+            BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry.COLUMN_GROUP_ID + " as " + BasketTableEntry.COLUMN_GROUP_ID,
             BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry.COLUMN_NOTE + " as " + BasketTableEntry.COLUMN_NOTE,
             BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry.COLUMN_COUNT + " as " + BasketTableEntry.COLUMN_COUNT,
             BasketTableEntry.TABLE_NAME.toString() + "." + BasketTableEntry.COLUMN_ITEM_ID + " as " + BasketTableEntry.COLUMN_ITEM_ID,
@@ -31,7 +32,7 @@ open class DbHelper   //    SQLiteDatabase db;
         val selection: String =
             BasketTableEntry.COLUMN_DATE_PURCHASED.toString() + (if (purchased) " not " else " is ") + " null  "
         val cursor = db.query(
-            "basket left join products on basket.item_id = products._id",  // таблица
+            "basket",  // таблица
             projection,  // столбцы
             selection,  // столбцы для условия WHERE
             null,  // значения для условия WHERE
@@ -43,10 +44,9 @@ open class DbHelper   //    SQLiteDatabase db;
             do {
                 val p = BasketProductModel()
 
-                p.name = cursor.getString(cursor.getColumnIndex(ProductTableEntry.COLUMN_NAME))
+                p.name = cursor.getString(cursor.getColumnIndex(BasketTableEntry.COLUMN_ITEM_NAME))
                 p._id = cursor.getLong(cursor.getColumnIndex(BasketTableEntry._ID))
-                p.date_purchased =
-                    cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_DATE_PURCHASED))
+                p.date_purchased =  cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_DATE_PURCHASED))
                 p.item_id = cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_ITEM_ID))
                 p.count = cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_COUNT))
                 val ind = cursor.getColumnIndex(BasketTableEntry.COLUMN_NOTE)
@@ -121,7 +121,7 @@ open class DbHelper   //    SQLiteDatabase db;
         val cursor = db.query(
             ProductTableEntry.TABLE_NAME,  // таблица
             projection,  // столбцы
-            "${ProductTableEntry.COLUMN_NAME} =?",  // столбцы для условия WHERE
+            "lower( ${ProductTableEntry.COLUMN_NAME}) like '%?%'",  // столбцы для условия WHERE
             arrayOf<String>(name),  // значения для условия WHERE
             null,  // Don't group the rows
             null,  // Don't filter by row groups
@@ -146,7 +146,8 @@ open class DbHelper   //    SQLiteDatabase db;
         val db = writableDatabase
         products.forEach {
             val contentValues = ContentValues();
-            contentValues.put(BasketTableEntry.COLUMN_ITEM_ID, it.id)
+            contentValues.put(BasketTableEntry.COLUMN_GROUP_ID, it.groupId)
+            contentValues.put(BasketTableEntry.COLUMN_ITEM_NAME, it.name)
             db.insert(BasketTableEntry.TABLE_NAME, null, contentValues)
         }
     }

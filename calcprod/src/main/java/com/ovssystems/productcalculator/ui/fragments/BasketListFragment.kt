@@ -17,7 +17,7 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         initFunc()
         setHasOptionsMenu(true)
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        APP_ACTIVITY.hideKeyboard()
+
     }
 
     private fun initFunc() {
@@ -25,6 +25,7 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         basketListView = basket_item_view
         basketListAdapter = BasketListAdapter()
         basketListView.adapter = basketListAdapter
+        basketListAdapter.updateBasket()
         fab_add_shipping.setOnClickListener {  onAddItemsToBasketClick() }
         busket_done_shipping.setOnClickListener { onBasketDoneShipping() }
     }

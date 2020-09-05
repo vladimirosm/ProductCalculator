@@ -109,20 +109,16 @@ class ProductsAddFragment : Fragment(R.layout.basket_add_items) {
         val products: MutableList<ProductModel> = ArrayList<ProductModel>()
         productAddListAdapter.selectedProductList.forEach {
             if (it.name.isNotEmpty())
-                products.add(productDataGlobal.db.productByName(it.name))
+                products.add(it)
         }
         productDataGlobal.db.addProductsToBasket(products)
-
         activity?.supportFragmentManager?.popBackStack()
     }
 
     override fun onStop() {
+ //       speechRecognizer.destroy();
+        APP_ACTIVITY.hideKeyboard()
         super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        speechRecognizer.destroy();
     }
 
     private fun checkPermission() {
