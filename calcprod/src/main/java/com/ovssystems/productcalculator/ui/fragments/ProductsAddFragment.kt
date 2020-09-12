@@ -40,10 +40,7 @@ class ProductsAddFragment : Fragment(R.layout.basket_add_items) {
         productAddListAdapter = ProductsAddAdapter()
         basket_item_add_list.adapter = productAddListAdapter
         product_add_done_button.setOnClickListener { onDoneProduct() }
-        APP_ACTIVITY.mToolbar.setNavigationOnClickListener {
-            onDoneProduct()
-        }
-        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         btn_speech_recognizer.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -112,7 +109,9 @@ class ProductsAddFragment : Fragment(R.layout.basket_add_items) {
                 products.add(it)
         }
         productDataGlobal.db.addProductsToBasket(products)
-        activity?.supportFragmentManager?.popBackStack()
+        activity?.onBackPressed();
+//        APP_ACTIVITY.navigateUpTo(   Intent(APP_ACTIVITY, MainActivity::class.java))
+//        activity?.supportFragmentManager?.popBackStack()
     }
 
     override fun onStop() {

@@ -2,8 +2,8 @@ package com.ovssystems.productcalculator.dbHelper
 
 import android.content.ContentValues
 import android.content.Context
-import com.ovssystems.productcalculator.data.BasketTableEntry
-import com.ovssystems.productcalculator.data.ProductTableEntry
+import com.ovssystems.productcalculator.dbHelper.data.BasketTableEntry
+import com.ovssystems.productcalculator.dbHelper.data.ProductTableEntry
 import com.ovssystems.productcalculator.model.BasketProductModel
 import com.ovssystems.productcalculator.model.ProductModel
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper

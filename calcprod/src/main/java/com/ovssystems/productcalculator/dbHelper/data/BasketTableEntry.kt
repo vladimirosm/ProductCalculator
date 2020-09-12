@@ -1,4 +1,4 @@
-package com.ovssystems.productcalculator.data
+package com.ovssystems.productcalculator.dbHelper.data
 
 import android.provider.BaseColumns
 

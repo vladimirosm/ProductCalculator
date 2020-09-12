@@ -1,8 +1,10 @@
 package com.ovssystems.productcalculator.ui.fragments
 
+import android.content.Intent
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.omega_r.libs.omegarecyclerview.OmegaRecyclerView
-import com.ovssystems.productcalculator.APP_ACTIVITY
+import com.ovssystems.productcalculator.ProductAddActivity
 import com.ovssystems.productcalculator.R
 import com.ovssystems.productcalculator.adapters.BasketListAdapter
 import com.ovssystems.productcalculator.productDataGlobal
@@ -16,7 +18,7 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         super.onStart()
         initFunc()
         setHasOptionsMenu(true)
-        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    //    APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
     }
 
@@ -26,7 +28,7 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         basketListAdapter = BasketListAdapter()
         basketListView.adapter = basketListAdapter
         basketListAdapter.updateBasket()
-        fab_add_shipping.setOnClickListener {  onAddItemsToBasketClick() }
+        fab_add_shipping.setOnClickListener { v-> onAddItemsToBasketClick(v) }
         busket_done_shipping.setOnClickListener { onBasketDoneShipping() }
     }
 
@@ -39,8 +41,11 @@ class BasketListFragment : Fragment(R.layout.fragment_basket_list) {
         basketListAdapter.notifyDataSetChanged()
     }
 
-    private fun onAddItemsToBasketClick() {
-         APP_ACTIVITY.replaceFragment (ProductsAddFragment(), true)
+    private fun onAddItemsToBasketClick(view: View) {
+        val intent = Intent(activity, ProductAddActivity::class.java);
+        startActivity(intent)
+ //      view.findNavController().navigate(R.id.action_basketListFragment_to_productsAddFragment)
+
     }
 }
 

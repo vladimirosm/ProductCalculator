@@ -3,11 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/basketListFragment">
-
+    app:startDestination="@id/basket_list_fragment">
     <fragment
-        android:id="@+id/basketListFragment"
+        android:id="@+id/basket_history_fragment"
+        android:name="com.ovssystems.productcalculator.ui.fragments.BasketHistoryFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_basket_history" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.ovssystems.productcalculator.ui.fragments.BasketFragment"
+        android:label="BasketFragment" />
+    <fragment
+        android:id="@+id/basket_list_fragment"
         android:name="com.ovssystems.productcalculator.ui.fragments.BasketListFragment"
-        android:label="fragment_basket_list"
+        android:label="Basket list"
         tools:layout="@layout/fragment_basket_list" />
+    <fragment
+        android:id="@+id/productsAddFragment"
+        android:name="com.ovssystems.productcalculator.ui.fragments.ProductsAddFragment"
+        android:label="ProductsAddFragment" />
 </navigation>
