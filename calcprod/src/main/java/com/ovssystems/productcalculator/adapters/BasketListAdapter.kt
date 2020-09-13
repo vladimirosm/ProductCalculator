@@ -17,7 +17,7 @@ import com.ovssystems.productcalculator.productDataGlobal
 
 open class BasketListAdapter :
     OmegaRecyclerView.Adapter<BasketListAdapter.BasketItemHolder>()
-///    ,StickyAdapter<ShoppedListAdapter.HeaderHolder>
+
 {
     lateinit var shoppedList: MutableList<BasketProductModel>
 

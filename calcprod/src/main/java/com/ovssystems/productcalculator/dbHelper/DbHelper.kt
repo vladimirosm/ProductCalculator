@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import com.ovssystems.productcalculator.dbHelper.data.BasketTableEntry
 import com.ovssystems.productcalculator.dbHelper.data.ProductTableEntry
+import com.ovssystems.productcalculator.model.BasketHistoryModel
 import com.ovssystems.productcalculator.model.BasketProductModel
 import com.ovssystems.productcalculator.model.ProductModel
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
@@ -46,7 +47,7 @@ open class DbHelper   //    SQLiteDatabase db;
 
                 p.name = cursor.getString(cursor.getColumnIndex(BasketTableEntry.COLUMN_ITEM_NAME))
                 p._id = cursor.getLong(cursor.getColumnIndex(BasketTableEntry._ID))
-                p.date_purchased =  cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_DATE_PURCHASED))
+                p.date_purchased = cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_DATE_PURCHASED)).toUInt()
                 p.item_id = cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_ITEM_ID))
                 p.count = cursor.getInt(cursor.getColumnIndex(BasketTableEntry.COLUMN_COUNT))
                 val ind = cursor.getColumnIndex(BasketTableEntry.COLUMN_NOTE)
@@ -65,6 +66,39 @@ open class DbHelper   //    SQLiteDatabase db;
     val basketArchiveList: List<BasketProductModel>
         get() {
             return getBasketList(true)
+        }
+
+    val basketHistoryList: List<BasketHistoryModel>
+        get() {
+            val result: MutableList<BasketHistoryModel> = ArrayList<BasketHistoryModel>()
+            val db = writableDatabase
+            //           val qb = SQLiteQueryBuilder()
+            // Зададим условие для выборки - список столбцов
+            val projection = arrayOf<String>(
+                "date_purchased as data",
+                "count(date_purchased) as total"
+            )
+            val selection: String =
+                BasketTableEntry.COLUMN_DATE_PURCHASED.toString() + " not  null  "
+
+            // Делаем запрос
+            val cursor = db.query(
+                BasketTableEntry.TABLE_NAME,  // таблица
+                projection,  // столбцы
+                selection,  // столбцы для условия WHERE
+                null,  // значения для условия WHERE
+                "data",  // Don't group the rows
+                null,  // Don't filter by row groups
+                null
+            )
+            if (cursor.moveToFirst()) {
+                do {
+                    val data =  cursor.getLong(cursor.getColumnIndex("data"))
+                    val productCount = (cursor.getLong(cursor.getColumnIndex("total")))
+                    result.add(BasketHistoryModel(data.toUInt(), productCount.toUInt()))
+                } while (cursor.moveToNext())
+            }
+            return result
         }
 
     // Зададим условие для выборки - список столбцов
@@ -152,10 +186,10 @@ open class DbHelper   //    SQLiteDatabase db;
         }
     }
 
-    fun updatePurchased(_id: Long, data : Int) {
+    fun updatePurchased(_id: Long, data: UInt) {
         val db = writableDatabase
         val contentValues = ContentValues();
-        contentValues.put(BasketTableEntry.COLUMN_DATE_PURCHASED,data);
+        contentValues.put(BasketTableEntry.COLUMN_DATE_PURCHASED, data.toLong());
         db.update(BasketTableEntry.TABLE_NAME,contentValues,"${BasketTableEntry._ID}=$_id", null);
     }
 
